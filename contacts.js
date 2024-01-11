@@ -1,17 +1,17 @@
-import { promises as fs } from "fs";
-import { join } from "path";
+const fs = require("fs/promises");
+const path = require("path");
 
-const contactsPath = join(process.cwd(), "db");
+const contactsPath = path.join(process.cwd(), "db", "contacts.json");
 
-// TODO: задокументувати кожну функцію
 async function listContacts() {
-  fs.readFile(`${contactsPath}/contacts.json`)
-    .then((data) => {
-      const fff = data.toString();
-      console.log(fff);
-      return fff;
-    })
-    .catch((err) => console.log(err.message));
+  try {
+    const readData = await fs.readFile(contactsPath);
+    const dataArr = JSON.parse(readData);
+    console.log(dataArr);
+    return dataArr;
+  } catch (err) {
+    console.log(err.message);
+  }
 }
 
 function getContactById(contactId) {
@@ -36,12 +36,12 @@ function sum() {
   return 3 + 7;
 }
 
-const contacts = {
-  listContacts,
-  getContactById,
-  removeContact,
-  addContact,
-  sum,
-};
+// const contacts = {
+//   listContacts,
+//   getContactById,
+//   removeContact,
+//   addContact,
+//   sum,
+// };
 
-export default contacts;
+module.exports = listContacts;
