@@ -7,7 +7,6 @@ async function listContacts() {
   try {
     const readData = await fs.readFile(contactsPath);
     const dataArr = JSON.parse(readData);
-    console.log(dataArr);
     return dataArr;
   } catch (err) {
     console.log(err.message);
@@ -33,7 +32,8 @@ function addContact(name, email, phone) {
   // ...твій код. Повертає об'єкт доданого контакту.
 }
 function sum() {
-  return 3 + 7;
+  const f = 3 + 7;
+  return f;
 }
 
 // const contacts = {

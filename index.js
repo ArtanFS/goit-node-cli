@@ -15,7 +15,21 @@ const options = program.opts();
 async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      await listContacts();
+      await listContacts()
+        .then((contacts) => {
+          return Promise.all(
+            contacts.map((contact) => {
+              return {
+                Id: contact.id,
+                Name: contact.name,
+                Email: contact.email,
+                Phone: contact.phone,
+              };
+            })
+          );
+        })
+        .then((result) => console.table(result))
+        .catch((err) => console.log(err.message));
       break;
 
     case "get":
