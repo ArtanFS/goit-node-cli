@@ -1,5 +1,5 @@
 const { program } = require("commander");
-const listContacts = require("./contacts");
+const { listContacts, getContactById } = require("./contacts");
 
 program
   .option("-a, --action <type>", "choose action")
@@ -33,7 +33,11 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "get":
-      // ... id
+      await getContactById(id)
+        .then((contact) => {
+          return console.log(contact);
+        })
+        .catch((err) => console.log(err.message));
       break;
 
     case "add":
