@@ -17,10 +17,10 @@ program.parse();
 
 const options = program.opts();
 
-async function invokeAction({ action, id, name, email, phone }) {
+function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      await listContacts()
+      listContacts()
         .then((contacts) => {
           return Promise.all(
             contacts.map((contact) => {
@@ -38,7 +38,7 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "get":
-      await getContactById(id)
+      getContactById(id)
         .then((contact) => {
           return console.log(contact);
         })
@@ -46,7 +46,7 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "add":
-      await addContact(name, email, phone)
+      addContact(name, email, phone)
         .then((contact) => {
           return console.log(contact);
         })
@@ -54,7 +54,7 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "remove":
-      await removeContact(id)
+      removeContact(id)
         .then((contact) => {
           return console.log(contact);
         })
