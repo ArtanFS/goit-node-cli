@@ -1,5 +1,5 @@
 const { program } = require("commander");
-const { listContacts, getContactById } = require("./contacts");
+const { listContacts, getContactById, removeContact } = require("./contacts");
 
 program
   .option("-a, --action <type>", "choose action")
@@ -45,7 +45,11 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "remove":
-      // ... id
+      await removeContact(id)
+        .then((contact) => {
+          return console.log(contact);
+        })
+        .catch((err) => console.log(err.message));
       break;
 
     default:
